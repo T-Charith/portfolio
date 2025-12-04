@@ -3,88 +3,279 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>charith.in</title>
+  <title>charith.in – AWS Data Engineer</title>
+  <meta name="description" content="Portfolio of CHARITH T – AWS Data Engineer specializing in data lakes, ETL pipelines, and Medallion Architecture on AWS.">
   <style>
+    :root {
+      --bg: #0f172a;          /* page background */
+      --card-bg: #0b1220;     /* card background */
+      --accent: #38bdf8;      /* cyan accent */
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #333;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
     }
-    header {
-      background: #111;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
+
+    .shell {
+      width: 100%;
+      max-width: 780px;
     }
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-    h2 {
-      margin-top: 40px;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-    }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
+
     .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px 24px 24px;
+      box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.8),
+        0 0 0 1px rgba(148, 163, 184, 0.25);
+      border: 1px solid rgba(148, 163, 184, 0.3);
     }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .name-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3vw, 2.3rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .role-pill {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .subline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin-top: 4px;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--border-subtle);
+      display: inline-block;
+      margin: 0 4px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    section {
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding-top: 20px;
+    }
+
+    h2 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    .about {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #d1d5db;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .skill-pill {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .skill-pill.highlight {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #e0f2fe;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .contact-label {
+      color: var(--text-muted);
+    }
+
+    .contact-link {
+      text-decoration: none;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.7);
+      transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-link:hover {
+      background: var(--accent);
+      color: #0b1120;
+      border-color: transparent;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.35);
+    }
+
     footer {
       text-align: center;
-      padding: 20px;
-      background: #111;
-      color: white;
-      margin-top: 40px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      opacity: 0.8;
     }
-    a {
-      color: #0077cc;
-      text-decoration: none;
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 24px 18px 18px;
+        border-radius: 20px;
+      }
+
+      .name-row {
+        align-items: flex-start;
+      }
+
+      .role-pill {
+        margin-top: 4px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>CHARITH T</h1>
-    <p>AWS Data Engineer</p>
-  </header>
+  <div class="shell">
+    <div class="card">
+      <header>
+        <div class="name-row">
+          <h1>CHARITH&nbsp;T</h1>
+          <span class="role-pill">AWS Data Engineer</span>
+        </div>
+        <p class="subline">
+          Designing reliable data platforms on AWS with Medallion Architecture, scalable ETL pipelines,
+          and clean, analytics-ready datasets.
+        </p>
+        <div class="meta">
+          <span>Bangalore, India</span>
+          <span class="dot"></span>
+          <span>3 years experience</span>
+        </div>
+      </header>
 
-  <section>
-    <h2>About Me</h2>
-    <p>
-      Aspiring AWS Data Engineer with 3 years of experience in cloud operations, infrastructure automation,
-      and building scalable ETL pipelines using AWS services like S3, Glue, Lambda, and Redshift. Skilled
-      in Medallion Architecture (Bronze, Silver, Gold), Python, SQL, and data reconciliation across Finance
-      and Retail domains.
-    </p>
+      <main>
+        <section>
+          <h2>About</h2>
+          <p class="about">
+            Aspiring AWS Data Engineer with 3 years of experience in cloud operations, infrastructure
+            automation, and building scalable ETL pipelines using AWS services like S3, Glue, Lambda,
+            and Redshift. Skilled in Medallion Architecture (Bronze, Silver, Gold), Python, SQL, and
+            data reconciliation across Finance and Retail domains.
+          </p>
+        </section>
 
-    <h2>Skills</h2></h2>
-    <ul>
-      <li>AWS: S3, Glue, Lambda, EC2, Athena, RDS, Redshift, IAM, CloudWatch, EventBridge</li>
-      <li>Data Lake Design (Medallion Architecture)</li>
-      <li>ETL with Glue (PySpark), Lambda, S3</li>
-      <li>Python, SQL (PostgreSQL, MySQL), Bash</li>
-      <li>Terraform, Git, GitHub, CI/CD basics</li>
-      <li>Monitoring & Logging: CloudWatch, Glue Logs</li>
-    </ul>
+        <section>
+          <h2>Skills</h2>
+          <ul class="skills-grid">
+            <li class="skill-pill highlight">AWS Data Engineering</li>
+            <li class="skill-pill">S3 · Glue · Lambda · Redshift</li>
+            <li class="skill-pill">Medallion Architecture</li>
+            <li class="skill-pill">ETL · Data Pipelines</li>
+            <li class="skill-pill">Python</li>
+            <li class="skill-pill">SQL (PostgreSQL · MySQL)</li>
+            <li class="skill-pill">Terraform</li>
+            <li class="skill-pill">Git · GitHub · CI/CD basics</li>
+            <li class="skill-pill">CloudWatch · Glue Logs</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Contact</h2>
+          <div class="contact-row">
+            <span class="contact-label">Email</span>
+            <a class="contact-link" href="mailto:charith.t1312@gmail.com">
+              charith.t1312@gmail.com
+            </a>
+          </div>
+        </section>
+      </main>
     </div>
 
-    <h2>Contact</h2>
-    <p>
-      Email: <a href="mailto:charith.t1312@gmail.com">charith.t1312@gmail.com</a>
-    </p>
-  </section>
-
-  <footer>
-    © 2025 charith.in — All Rights Reserved
-  </footer>
+    <footer>
+      © 2025 charith.in — All rights reserved
+    </footer>
+  </div>
 </body>
 </html>
