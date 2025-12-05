@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,15 +29,71 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background:
-        radial-gradient(circle at top left, #1f2937 0, transparent 55%),
-        radial-gradient(circle at bottom right, #0f172a 0, #020617 55%);
+      background: var(--bg);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 32px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Live, diffused animated background */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.28), transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.22), transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(45, 212, 191, 0.22), transparent 60%);
+      opacity: 0.9;
+      filter: blur(40px);
+      transform: translate3d(0, 0, 0);
+    }
+
+    body::before {
+      animation: bg-drift-1 24s ease-in-out infinite alternate;
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      animation: bg-drift-2 32s ease-in-out infinite alternate;
+      mix-blend-mode: soft-light;
+    }
+
+    @keyframes bg-drift-1 {
+      0% {
+        transform: translate3d(-4%, -3%, 0) scale(1.03);
+        filter: blur(40px) hue-rotate(0deg);
+      }
+      50% {
+        transform: translate3d(4%, 6%, 0) scale(1.08);
+        filter: blur(46px) hue-rotate(20deg);
+      }
+      100% {
+        transform: translate3d(-6%, 3%, 0) scale(1.04);
+        filter: blur(42px) hue-rotate(40deg);
+      }
+    }
+
+    @keyframes bg-drift-2 {
+      0% {
+        transform: translate3d(6%, 4%, 0) scale(1.05);
+        filter: blur(42px) hue-rotate(0deg);
+      }
+      50% {
+        transform: translate3d(-3%, -4%, 0) scale(1.02);
+        filter: blur(48px) hue-rotate(-20deg);
+      }
+      100% {
+        transform: translate3d(2%, -2%, 0) scale(1.07);
+        filter: blur(44px) hue-rotate(-35deg);
+      }
     }
 
     .shell {
@@ -52,9 +109,25 @@
         0 28px 60px rgba(15, 23, 42, 0.85),
         0 0 0 1px rgba(148, 163, 184, 0.35);
       border: 1px solid rgba(148, 163, 184, 0.3);
-      transform: translateY(8px);
+      transform: translateY(8px) scale(0.99);
       opacity: 0;
       animation: rise-in 0.7s ease-out forwards;
+      backdrop-filter: blur(20px) saturate(130%);
+      background-color: rgba(15, 23, 42, 0.88);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease,
+        background-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(4px) scale(1);
+      box-shadow:
+        0 32px 70px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(148, 163, 184, 0.45);
+      border-color: rgba(148, 163, 184, 0.5);
+      background-color: rgba(15, 23, 42, 0.94);
     }
 
     header {
@@ -90,6 +163,20 @@
       background: rgba(15, 23, 42, 0.85);
       color: var(--text-muted);
       white-space: nowrap;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .role-pill:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #e0f2fe;
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.35);
+      transform: translateY(-1px);
     }
 
     nav {
@@ -112,7 +199,8 @@
         background 0.16s ease,
         border-color 0.16s ease,
         color 0.16s ease,
-        transform 0.12s ease;
+        transform 0.12s ease,
+        box-shadow 0.16s ease;
     }
 
     .nav-link:hover {
@@ -120,6 +208,7 @@
       border-color: var(--border-subtle);
       color: var(--text-main);
       transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
     }
 
     .subline {
@@ -138,6 +227,7 @@
     section {
       border-top: 1px solid rgba(148, 163, 184, 0.35);
       padding-top: 16px;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
     }
 
     h2 {
@@ -178,10 +268,11 @@
       white-space: nowrap;
       transform: translateY(0);
       transition:
-        transform 0.14s ease,
-        box-shadow 0.14s ease,
-        border-color 0.14s ease,
-        background 0.14s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease;
     }
 
     .skill-pill.highlight {
@@ -221,10 +312,12 @@
         background 0.18s ease,
         transform 0.18s ease,
         box-shadow 0.18s ease,
-        border-color 0.18s ease;
+        border-color 0.18s ease,
+        color 0.18s ease;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      backdrop-filter: blur(8px);
     }
 
     .contact-link:hover {
@@ -239,6 +332,7 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       min-width: 70px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
     footer {
@@ -252,12 +346,64 @@
     @keyframes rise-in {
       from {
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(18px) scale(0.97);
       }
       to {
         opacity: 1;
-        transform: translateY(8px);
+        transform: translateY(8px) scale(1);
       }
+    }
+
+    /* Custom cursor (desktop only, JS-controlled) */
+    .cursor-dot,
+    .cursor-outline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate3d(-50%, -50%, 0);
+      will-change: transform;
+    }
+
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.9);
+      transition:
+        transform 0.12s ease-out,
+        opacity 0.2s ease-out,
+        box-shadow 0.2s ease-out;
+    }
+
+    .cursor-outline {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 0 24px rgba(15, 23, 42, 0.85);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0, transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      transition:
+        transform 0.2s ease-out,
+        opacity 0.25s ease-out,
+        border-color 0.25s ease-out,
+        box-shadow 0.25s ease-out;
+    }
+
+    .cursor-dot.is-active {
+      transform: translate3d(-50%, -50%, 0) scale(1.7);
+      box-shadow: 0 0 28px rgba(56, 189, 248, 1);
+    }
+
+    .cursor-outline.is-active {
+      transform: translate3d(-50%, -50%, 0) scale(1.5);
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 38px rgba(56, 189, 248, 0.65);
+      opacity: 1;
     }
 
     @media (max-width: 640px) {
@@ -329,7 +475,7 @@
   </div>
 
   <script>
-    // Small interaction: copy email address on click and show feedback
+    // Email copy interaction (unchanged)
     (function () {
       var emailLink = document.getElementById('email-link');
       var copyStatus = document.getElementById('copy-status');
@@ -341,14 +487,71 @@
         e.preventDefault();
         navigator.clipboard.writeText(email).then(function () {
           copyStatus.textContent = 'Copied!';
+          copyStatus.style.opacity = '1';
+          copyStatus.style.transform = 'translateY(-2px)';
           setTimeout(function () {
+            copyStatus.style.opacity = '0';
+            copyStatus.style.transform = 'translateY(0)';
             copyStatus.textContent = '';
-          }, 2000);
+          }, 1600);
         }).catch(function () {
-          // if copy fails, just fall back to normal mailto
           window.location.href = 'mailto:' + email;
         });
       });
+    })();
+
+    // Custom cursor with smooth trailing outline (desktop only)
+    (function () {
+      if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) {
+        return; // keep default cursor on touch devices
+      }
+
+      var dot = document.createElement('div');
+      var outline = document.createElement('div');
+      dot.className = 'cursor-dot';
+      outline.className = 'cursor-outline';
+      document.body.appendChild(dot);
+      document.body.appendChild(outline);
+
+      // Hide default cursor on desktop
+      document.body.style.cursor = 'none';
+
+      var mouseX = window.innerWidth / 2;
+      var mouseY = window.innerHeight / 2;
+      var outlineX = mouseX;
+      var outlineY = mouseY;
+
+      function positionDot() {
+        dot.style.transform = 'translate3d(' + mouseX + 'px,' + mouseY + 'px,0)';
+      }
+
+      function animateOutline() {
+        outlineX += (mouseX - outlineX) * 0.18;
+        outlineY += (mouseY - outlineY) * 0.18;
+        outline.style.transform = 'translate3d(' + outlineX + 'px,' + outlineY + 'px,0)';
+        requestAnimationFrame(animateOutline);
+      }
+
+      document.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        positionDot();
+      });
+
+      // Enlarge cursor on interactive elements
+      var interactive = document.querySelectorAll('a, button, .skill-pill, .role-pill');
+      interactive.forEach(function (el) {
+        el.addEventListener('mouseenter', function () {
+          dot.classList.add('is-active');
+          outline.classList.add('is-active');
+        });
+        el.addEventListener('mouseleave', function () {
+          dot.classList.remove('is-active');
+          outline.classList.remove('is-active');
+        });
+      });
+
+      animateOutline();
     })();
   </script>
 </body>
